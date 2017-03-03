@@ -43,6 +43,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //webView.loadUrl(new HTMLDummy().getO2BankingSepaTemplateFromAssets());
+        //webView.loadDataWithBaseURL(null, new HTMLDummy().getO2BankingSepaTemplateFromRawString(), MIME_TYPE, ENCODING, null);
+
         webView.loadDataWithBaseURL(null, new HTMLDummy().getO2BankingSepaTemplate(this), MIME_TYPE, ENCODING, null);
     }
 
