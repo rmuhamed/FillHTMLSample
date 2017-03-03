@@ -10,8 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import generator.TransactionGenerator;
 import html.HTMLDummy;
-import html.MyJavaScriptInterface;
 
 public class MainActivity extends AppCompatActivity {
     public static final String MIME_TYPE = "text/HTML";
@@ -46,7 +46,11 @@ public class MainActivity extends AppCompatActivity {
         //webView.loadUrl(new HTMLDummy().getO2BankingSepaTemplateFromAssets());
         //webView.loadDataWithBaseURL(null, new HTMLDummy().getO2BankingSepaTemplateFromRawString(), MIME_TYPE, ENCODING, null);
 
-        webView.loadDataWithBaseURL(null, new HTMLDummy().getO2BankingSepaTemplate(this), MIME_TYPE, ENCODING, null);
+        webView.loadDataWithBaseURL(null,
+                new HTMLDummy().getO2BankingSepaTemplate(this, TransactionGenerator.dummyTransaction()),
+                MIME_TYPE,
+                ENCODING,
+                null);
     }
 
 

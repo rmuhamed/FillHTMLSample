@@ -1,12 +1,12 @@
 package html;
 
 import android.content.Context;
-import android.content.res.AssetManager;
-import android.text.Html;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+
+import model.Transaction;
 
 /**
  * Created by romh on 02/03/2017.
@@ -14,18 +14,19 @@ import java.io.InputStreamReader;
 
 public class HTMLDummy {
 
+    public static final String HTML_FILE_URI = "templates/o2banking_sepa_template.html";
+    public static final String IBAN_TAG = "{{iban}}";
 
-
-    public String getO2BankingSepaTemplate(Context context) {
+    public String getO2BankingSepaTemplate(Context context, Transaction dummyTransaction) {
         StringBuilder htmlFile = new StringBuilder("");
 
         BufferedReader reader = null;
         try {
-            reader = new BufferedReader(new InputStreamReader(context.getAssets().open("templates/o2banking_sepa_template.html")));
+            reader = new BufferedReader(new InputStreamReader(context.getAssets().open(HTML_FILE_URI)));
             // do reading, usually loop until end of file reading
             String mLine;
             while ((mLine = reader.readLine()) != null) {
-                mLine = mLine.replace("{{amount}}", "1000");
+                mLine = new FileLineParser().replace(mLine, IBAN_TAG, dummyTransaction);
 
                 //process line
                 htmlFile.append(mLine);
@@ -36,9 +37,7 @@ public class HTMLDummy {
             if (reader != null) {
                 try {
                     reader.close();
-                } catch (IOException e) {
-
-                }
+                } catch (IOException e) {}
             }
         }
 
@@ -52,6 +51,7 @@ public class HTMLDummy {
 
         return htmlFile;
     }
+
     public String getO2BankingSepaTemplateFromRawString() {
         String htmlFile = "<!doctype html>\n" +
                 "<html lang=\"en\">\n" +
