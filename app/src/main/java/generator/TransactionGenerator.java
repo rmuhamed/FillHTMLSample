@@ -8,12 +8,13 @@ import model.Transaction;
 
 public class TransactionGenerator {
 
-    public static Transaction dummyTransaction() {
+    public static Transaction dummyInstance() {
         Transaction t = new Transaction();
 
-        t.setRecipient("Adam Testington");
+        t.setRecipient("Herr. Adam Testington");
         t.setIban("DE32700222009510260101");
-        t.setAmount(1000);
+        t.setAmount(Double.valueOf(1000));
+        t.setTotalAmount(Double.valueOf(1000));
 
         return t;
     }

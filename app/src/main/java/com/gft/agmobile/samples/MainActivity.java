@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String MIME_TYPE = "text/HTML";
     public static final String ENCODING = "UTF-8";
 
-    public static final String jobName = "PDFDumyDocument";
+    public static final String jobName = "PDFDummyDocument";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +25,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         this.doWebViewPrint();
-
     }
 
     private void doWebViewPrint() {
@@ -43,29 +42,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //webView.loadUrl(new HTMLDummy().getO2BankingSepaTemplateFromAssets());
-        //webView.loadDataWithBaseURL(null, new HTMLDummy().getO2BankingSepaTemplateFromRawString(), MIME_TYPE, ENCODING, null);
-
         webView.loadDataWithBaseURL(null,
-                new HTMLDummy().getO2BankingSepaTemplate(this, TransactionGenerator.dummyTransaction()),
+                new HTMLDummy().getO2BankingSepaTemplate(this, TransactionGenerator.dummyInstance()),
                 MIME_TYPE,
                 ENCODING,
                 null);
     }
 
-
-    @android.webkit.JavascriptInterface
     private void createWebPrintJob(WebView webView) {
         // Get a PrintManager instance
         PrintManager printManager = (PrintManager) this.getSystemService(Context.PRINT_SERVICE);
-
         // Get a print adapter instance
         PrintDocumentAdapter printAdapter = webView.createPrintDocumentAdapter();
-
         // Create a print job with name and adapter instance
-
-        PrintJob printJob = printManager.print(jobName, printAdapter, new PrintAttributes.Builder().build());
-
-        printJob.isCompleted();
+        printManager.print(jobName, printAdapter, new PrintAttributes.Builder().build());
     }
 }
