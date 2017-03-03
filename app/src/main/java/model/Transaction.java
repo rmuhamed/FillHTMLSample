@@ -30,7 +30,7 @@ public class Transaction {
         this.recipient = recipient;
     }
 
-    @Model(type = "getter", name = "iban", returnType = "String")
+    @Model(type = "getter", name = "amount", returnType = "Double")
     public Double getAmount() {
         return amount;
     }

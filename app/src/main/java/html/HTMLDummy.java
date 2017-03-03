@@ -15,7 +15,7 @@ import model.Transaction;
 public class HTMLDummy {
 
     public static final String HTML_FILE_URI = "templates/o2banking_sepa_template.html";
-    public static final String IBAN_TAG = "{{iban}}";
+    public static final String IBAN_TAG = "{{IBAN}}";
 
     public String getO2BankingSepaTemplate(Context context, Transaction dummyTransaction) {
         StringBuilder htmlFile = new StringBuilder("");
@@ -26,7 +26,7 @@ public class HTMLDummy {
             // do reading, usually loop until end of file reading
             String mLine;
             while ((mLine = reader.readLine()) != null) {
-                mLine = new FileLineParser().replace(mLine, IBAN_TAG, dummyTransaction);
+                mLine = new FileParser().replace(mLine, IBAN_TAG, dummyTransaction);
 
                 //process line
                 htmlFile.append(mLine);
