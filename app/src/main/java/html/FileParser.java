@@ -1,11 +1,9 @@
 package html;
 
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.StringTokenizer;
 
 import model.Transaction;
-import reflection.ReflectionUtils;
 import reflection.ReflectiveClass;
 import reflection.ReflectiveMethod;
 
@@ -30,7 +28,7 @@ public class FileParser {
             ReflectiveMethod method = new ReflectiveClass(Transaction.class).getterBy(propertyName);
 
             try {
-                originalLine = originalLine.replace(tag, (String) method.invoke(t));
+                originalLine = originalLine.replace(tag, method.invoke(t).toString());
             } catch (InvocationTargetException | IllegalAccessException e) {
                 e.printStackTrace();
             }

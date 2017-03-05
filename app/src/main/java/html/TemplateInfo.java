@@ -11,7 +11,7 @@ final class TemplateInfo {
     final class TAGs {
         static final String IBAN = "{{IBAN}}";
         static final String AMOUNT = "{{AMOUNT}}";
-        static final String TOTAL_AMOUNT = "{{TOTAL_AMOUNT}}";
+        static final String TOTAL_AMOUNT = "{{TOTALAMOUNT}}";
         static final String SUBJECT = "{{SUBJECT}}";
         static final String RECIPIENT = "{{RECIPIENT}}";
     }

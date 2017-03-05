@@ -9,7 +9,11 @@ import java.io.InputStreamReader;
 import model.Transaction;
 
 import static html.TemplateInfo.HTML_FILE_URI;
+import static html.TemplateInfo.TAGs.AMOUNT;
 import static html.TemplateInfo.TAGs.IBAN;
+import static html.TemplateInfo.TAGs.RECIPIENT;
+import static html.TemplateInfo.TAGs.SUBJECT;
+import static html.TemplateInfo.TAGs.TOTAL_AMOUNT;
 
 /**
  * Created by romh on 02/03/2017.
@@ -27,6 +31,10 @@ public class HTMLGenerator {
             String mLine;
             while ((mLine = reader.readLine()) != null) {
                 mLine = new FileParser().replace(mLine, IBAN, dummyTransaction);
+                mLine = new FileParser().replace(mLine, AMOUNT, dummyTransaction);
+                mLine = new FileParser().replace(mLine, SUBJECT, dummyTransaction);
+                mLine = new FileParser().replace(mLine, RECIPIENT, dummyTransaction);
+                mLine = new FileParser().replace(mLine, TOTAL_AMOUNT, dummyTransaction);
 
                 //process line
                 htmlFile.append(mLine);

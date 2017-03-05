@@ -13,6 +13,7 @@ public class TransactionGenerator {
 
         t.setRecipient("Herr. Adam Testington");
         t.setIban("DE32700222009510260101");
+        t.setSubject("Freuen uns auf die Lieferung an:");
         t.setAmount(Double.valueOf(1000));
         t.setTotalAmount(Double.valueOf(1000));
 
