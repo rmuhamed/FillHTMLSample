@@ -8,16 +8,16 @@ import java.io.InputStreamReader;
 
 import model.Transaction;
 
+import static html.TemplateInfo.HTML_FILE_URI;
+import static html.TemplateInfo.TAGs.IBAN;
+
 /**
  * Created by romh on 02/03/2017.
  */
 
-public class HTMLDummy {
+public class HTMLGenerator {
 
-    public static final String HTML_FILE_URI = "templates/o2banking_sepa_template.html";
-    public static final String IBAN_TAG = "{{IBAN}}";
-
-    public String getO2BankingSepaTemplate(Context context, Transaction dummyTransaction) {
+    public String fromO2BankingSEPATemplate(Context context, Transaction dummyTransaction) {
         StringBuilder htmlFile = new StringBuilder("");
 
         BufferedReader reader = null;
@@ -26,7 +26,7 @@ public class HTMLDummy {
             // do reading, usually loop until end of file reading
             String mLine;
             while ((mLine = reader.readLine()) != null) {
-                mLine = new FileParser().replace(mLine, IBAN_TAG, dummyTransaction);
+                mLine = new FileParser().replace(mLine, IBAN, dummyTransaction);
 
                 //process line
                 htmlFile.append(mLine);
@@ -59,7 +59,7 @@ public class HTMLDummy {
                 "    <meta charset=\"UTF-8\">\n" +
                 "    <title>O2 Banking Template</title>\n" +
                 "\n" +
-                "    <style type=\"text/css\">\n" +
+                "    <style kind=\"text/css\">\n" +
                 "\n" +
                 "body { \n" +
                 "  font-family: helvetica, arial, sans-serif;\n" +

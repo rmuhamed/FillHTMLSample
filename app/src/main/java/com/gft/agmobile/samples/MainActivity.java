@@ -4,14 +4,13 @@ import android.content.Context;
 import android.os.Bundle;
 import android.print.PrintAttributes;
 import android.print.PrintDocumentAdapter;
-import android.print.PrintJob;
 import android.print.PrintManager;
 import android.support.v7.app.AppCompatActivity;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import generator.TransactionGenerator;
-import html.HTMLDummy;
+import html.HTMLGenerator;
 
 public class MainActivity extends AppCompatActivity {
     public static final String MIME_TYPE = "text/HTML";
@@ -43,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         webView.loadDataWithBaseURL(null,
-                new HTMLDummy().getO2BankingSepaTemplate(this, TransactionGenerator.dummyInstance()),
+                new HTMLGenerator().fromO2BankingSEPATemplate(this, TransactionGenerator.dummyInstance()),
                 MIME_TYPE,
                 ENCODING,
                 null);

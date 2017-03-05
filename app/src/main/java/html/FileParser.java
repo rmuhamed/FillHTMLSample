@@ -1,18 +1,13 @@
 package html;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.StringTokenizer;
-import java.util.regex.Matcher;
 
 import model.Transaction;
 import reflection.ReflectionUtils;
+import reflection.ReflectiveClass;
+import reflection.ReflectiveMethod;
 
 /**
  * Created by romh on 03/03/2017.
@@ -20,19 +15,22 @@ import reflection.ReflectionUtils;
 
 public class FileParser {
 
+    /**
+     *
+     * @param originalLine
+     * @param tag
+     * @param t
+     *
+     * @return
+     */
     public String replace(String originalLine, String tag, Transaction t) {
         if (originalLine.contains(tag)) {
             String propertyName = this.getPropertyBy(tag);
 
-            ReflectionUtils reflectionUtils = new ReflectionUtils(Transaction.class);
-
-            Method method = reflectionUtils.getterBy(propertyName);
+            ReflectiveMethod method = new ReflectiveClass(Transaction.class).getterBy(propertyName);
 
             try {
-                String stringValue = (String) reflectionUtils.execute(method, t);
-
-                originalLine = originalLine.replace(tag, stringValue);
-
+                originalLine = originalLine.replace(tag, (String) method.invoke(t));
             } catch (InvocationTargetException | IllegalAccessException e) {
                 e.printStackTrace();
             }

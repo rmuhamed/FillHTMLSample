@@ -11,5 +11,5 @@ import java.lang.annotation.RetentionPolicy;
 public @interface Model {
     String returnType();
     String name();
-    String type();
+    String kind();
 }

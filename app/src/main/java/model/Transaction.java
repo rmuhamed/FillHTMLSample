@@ -12,7 +12,7 @@ public class Transaction {
     private Double amount;
     private Double totalAmount;
 
-    @Model(type = "getter", name = "iban", returnType = "String")
+    @Model(kind = "getter", name = "iban", returnType = "String")
     public String getIban() {
         return iban;
     }
@@ -21,7 +21,7 @@ public class Transaction {
         this.iban = iban;
     }
 
-    @Model(type = "getter", name = "recipient", returnType = "String")
+    @Model(kind = "getter", name = "recipient", returnType = "String")
     public String getRecipient() {
         return recipient;
     }
@@ -30,7 +30,7 @@ public class Transaction {
         this.recipient = recipient;
     }
 
-    @Model(type = "getter", name = "amount", returnType = "Double")
+    @Model(kind = "getter", name = "amount", returnType = "Double")
     public Double getAmount() {
         return amount;
     }
