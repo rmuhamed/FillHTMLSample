@@ -1,18 +1,20 @@
 package html;
 
+import java.util.List;
+
 /**
- * Created by rmuhamed on 5/3/17.
+ * Created by romh on 06/03/2017.
  */
 
-final class TemplateInfo {
-    static final String HTML_FILE_URI = "templates/o2banking_sepa_template.html";
+public abstract class TemplateInfo {
+    protected String HTML_FILE_URI;
 
-
-    final class TAGs {
-        static final String IBAN = "{{IBAN}}";
-        static final String AMOUNT = "{{AMOUNT}}";
-        static final String TOTAL_AMOUNT = "{{TOTALAMOUNT}}";
-        static final String SUBJECT = "{{SUBJECT}}";
-        static final String RECIPIENT = "{{RECIPIENT}}";
+    TemplateInfo() {
+        HTML_FILE_URI = this.getHtmlFileUri();
     }
+
+    abstract String getHtmlFileUri();
+
+    public abstract List<String> getTags();
+
 }

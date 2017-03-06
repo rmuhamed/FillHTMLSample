@@ -1,19 +1,20 @@
 package html;
 
-import android.content.Context;
+import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.List;
 
 import model.Transaction;
 
-import static html.TemplateInfo.HTML_FILE_URI;
-import static html.TemplateInfo.TAGs.AMOUNT;
-import static html.TemplateInfo.TAGs.IBAN;
-import static html.TemplateInfo.TAGs.RECIPIENT;
-import static html.TemplateInfo.TAGs.SUBJECT;
-import static html.TemplateInfo.TAGs.TOTAL_AMOUNT;
+import static html.O2SepaTemplateInfo.TAGs.AMOUNT;
+import static html.O2SepaTemplateInfo.TAGs.IBAN;
+import static html.O2SepaTemplateInfo.TAGs.RECIPIENT;
+import static html.O2SepaTemplateInfo.TAGs.SUBJECT;
+import static html.O2SepaTemplateInfo.TAGs.TOTAL_AMOUNT;
 
 /**
  * Created by romh on 02/03/2017.
@@ -21,35 +22,35 @@ import static html.TemplateInfo.TAGs.TOTAL_AMOUNT;
 
 public class HTMLGenerator {
 
-    public String fromO2BankingSEPATemplate(Context context, Transaction dummyTransaction) {
-        StringBuilder htmlFile = new StringBuilder("");
+    public static final String TAG = HTMLGenerator.class.getSimpleName();
 
-        BufferedReader reader = null;
-        try {
-            reader = new BufferedReader(new InputStreamReader(context.getAssets().open(HTML_FILE_URI)));
-            // do reading, usually loop until end of file reading
-            String mLine;
-            while ((mLine = reader.readLine()) != null) {
-                mLine = new FileParser().replace(mLine, IBAN, dummyTransaction);
-                mLine = new FileParser().replace(mLine, AMOUNT, dummyTransaction);
-                mLine = new FileParser().replace(mLine, SUBJECT, dummyTransaction);
-                mLine = new FileParser().replace(mLine, RECIPIENT, dummyTransaction);
-                mLine = new FileParser().replace(mLine, TOTAL_AMOUNT, dummyTransaction);
+    public String fromHTMLTemplate(InputStream htmlTemplateStream, List<String> tags, Transaction dummyTransaction) {
+        String result = "";
+        if (htmlTemplateStream != null) {
+            StringBuilder htmlFile = new StringBuilder("");
 
-                //process line
-                htmlFile.append(mLine);
+            BufferedReader reader = null;
+            try {
+                reader = new BufferedReader(new InputStreamReader(htmlTemplateStream));
+                String mLine;
+                while ((mLine = reader.readLine()) != null) {
+                    mLine = new FileParser().replace(mLine, tags, dummyTransaction);
+                    htmlFile.append(mLine);
+                }
+            } catch (IOException e) {
+                Log.e(TAG, e.toString());
+            } finally {
+                if (reader != null) {
+                    try {
+                        reader.close();
+                    } catch (IOException e) {
+                        Log.e(TAG, e.toString());
+                    }
+                }
             }
-        } catch (IOException e) {
-            //log the exception
-        } finally {
-            if (reader != null) {
-                try {
-                    reader.close();
-                } catch (IOException e) {}
-            }
+
+            result = htmlFile.toString();
         }
-
-        String result = htmlFile.toString();
 
         return result;
     }
